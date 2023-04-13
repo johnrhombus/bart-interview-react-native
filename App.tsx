@@ -55,12 +55,27 @@ function Section({children, title}: SectionProps): JSX.Element {
   );
 }
 
+// API ENDPOINTS
+// https://api.bart.gov/api/stn.aspx?cmd=stns&key=MW9S-E7SL-26DU-VV8V&json=y
+// https://api.bart.gov/api/etd.aspx?cmd=etd&orig=RICH&key=MW9S-E7SL-26DU-VV8V&json=y
+
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
+
+
+  setTimeout(() => {
+    fetch("https://api.bart.gov/api/stn.aspx?cmd=stns&key=MW9S-E7SL-26DU-VV8V&json=y").then(response => {
+      console.log("Go stations response: ", response);
+      return response.json()
+    }).then(json => {
+      console.log("Go stations json: ", json);
+      // TODO: Display each station in a list that the user can tap on and get departure times.
+    })
+  },1000)
 
   return (
     <SafeAreaView style={backgroundStyle}>
